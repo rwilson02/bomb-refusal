@@ -13,10 +13,6 @@ public class TileTurner : MonoBehaviour
         cam = Camera.main;
 
         //randomize orientation
-
-        //quick refresh
-        gameObject.transform.Translate(0, 0, -0.5f);
-        gameObject.transform.Translate(0, 0, 0.5f);
     }
 
     private void Update()
@@ -31,7 +27,6 @@ public class TileTurner : MonoBehaviour
                 Transform tile = hit.transform;
                 var eul = tile.eulerAngles;
 
-                gameObject.transform.Translate(0, 0, -0.5f);
                 if (dir == 0)
                 {
                     eul.z += 90;
@@ -42,7 +37,6 @@ public class TileTurner : MonoBehaviour
                 }
 
                 tile.eulerAngles = eul;
-                gameObject.transform.Translate(0, 0, 0.5f);
             }
         }
     }

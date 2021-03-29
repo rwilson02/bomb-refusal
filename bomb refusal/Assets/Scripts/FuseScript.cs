@@ -5,11 +5,16 @@ using UnityEngine;
 public class FuseScript : MonoBehaviour
 {
     public Animator burnings;
-    public KeyCode DebugIN, DebugOUT;
-    GameObject connection;
+    //public KeyCode DebugIN;
+    FuseScript connection;
 
     public GameObject connector;
     ConnectorScript connectorScript;
+
+    public CenterScript center;
+
+    public bool burnt = false;
+    public bool started = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,33 +27,20 @@ public class FuseScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(connection != null)
-        {
-            CheckConnect();
-        }
+        CheckConnect();
 
         //debug commands
-        {
-            if (Input.GetKeyDown(DebugIN))
-            {
-                if (burnings != null)
-                {
-                    burnings.ResetTrigger("burnIn");
-                    burnings.ResetTrigger("burnOut");
-                }
-                StartBurning(true);
-            }
-
-            if (Input.GetKeyDown(DebugOUT))
-            {
-                if (burnings != null)
-                {
-                    burnings.ResetTrigger("burnIn");
-                    burnings.ResetTrigger("burnOut");
-                }
-                StartBurning(false);
-            }
-        }
+        //{
+        //    if (Input.GetKeyDown(DebugIN))
+        //    {
+        //        if (burnings != null)
+        //        {
+        //            burnings.ResetTrigger("burnIn");
+        //            burnings.ResetTrigger("burnOut");
+        //        }
+        //        StartBurning(true);
+        //    }
+        //}
     }
 
     public void StartBurning(bool inward)
@@ -69,5 +61,18 @@ public class FuseScript : MonoBehaviour
     public void CheckConnect()
     {
         connection = connectorScript.connected;
+    }
+
+    public void PassItOn()
+    {
+        if (connection != null)
+        {
+            connection.StartBurning(true);
+        }
+    }
+
+    public void Burnt()
+    {
+        burnt = true;
     }
 }

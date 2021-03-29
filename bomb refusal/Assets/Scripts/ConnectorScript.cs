@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class ConnectorScript : MonoBehaviour
 {
-    public GameObject connected;
+    public FuseScript connected;
+    Collider2D connector;
+    Collider2D[] knex = new Collider2D[1];
+    ContactFilter2D cf;
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void Start()
     {
-        connected = null;
+        connector = GetComponent<Collider2D>();
+        cf.useTriggers = true;
+        cf.SetDepth(-0.65f, -0.55f);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        connected = collision.gameObject;
+        if (connector.OverlapCollider(cf, knex) > 0)
+        {
+            connected = knex[0].transform.parent.gameObject.GetComponent<FuseScript>();
+        } 
+        else
+        {
+            connected = null;
+        }
     }
 }
