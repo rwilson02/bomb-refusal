@@ -7,8 +7,8 @@ public class Patience : MonoBehaviour
     public Timer timer;
     public ResultScript res;
     public AudioSource burn;
-    public float margin;
-    public float patience = 3;
+    public float margin = 3;
+    public float patience;
 
     bool anger = false;
 
