@@ -5,11 +5,14 @@ using UnityEngine;
 public class TileTurner : MonoBehaviour
 {
     Camera cam;
+    public AudioClip aud;
+    AudioSource sus;
 
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
+        sus = cam.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -34,6 +37,7 @@ public class TileTurner : MonoBehaviour
                 }
 
                 tile.eulerAngles = eul;
+                sus.PlayOneShot(aud);
             }
         }
     }

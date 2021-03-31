@@ -13,19 +13,32 @@ public class ResultScript : MonoBehaviour
     public AudioSource boomSFX;
     public GameObject explosion;
     public GameObject level;
+    public PauseManager pause;
+    public JukeScript music;
+    public ShakeIt shk;
 
-    readonly string[] msgs = { "NICE ONE!", "KABOOM!", "YOU DID IT!", "TWO THUMBS UP!" };
+    readonly string[] msgs = { 
+        "NICE ONE!", 
+        "KABOOM!", 
+        "YOU DID IT!", 
+        "TWO THUMBS UP!", 
+        "like and subscribe lol" 
+    };
 
     public void EndLevel(bool success)
     {
         pat.Cease();
+        if (pause.paused) { pause.paused = false; }
+        pause.pausable = false;
+        music.sauce.Stop();
         results.SetActive(true);
         if (success)
         {
             level.SetActive(false);
             Instantiate(explosion);
-            boomSFX.PlayOneShot(boomSFX.clip);
+            boomSFX.PlayOneShot(boomSFX.clip, 0.5f);
             message.text = msgs[Random.Range(0, msgs.Length)];
+            shk.Shake();
         }
         else
         {
