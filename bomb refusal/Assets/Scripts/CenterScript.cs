@@ -6,8 +6,10 @@ public class CenterScript : MonoBehaviour
 {
     public List<FuseScript> fuses;
     public Sprite[] img = new Sprite[2];
+    public bool unturnable = false;
     bool burnt = false, keepChecking = true;
     SpriteRenderer sprite;
+    Transform tile;
 
     void Start()
     {
@@ -16,6 +18,14 @@ public class CenterScript : MonoBehaviour
         {
             fuses.Add(fuse.GetComponent<FuseScript>());
         }
+
+        tile = gameObject.transform.parent;
+        if (unturnable)
+        {
+            tile.GetComponent<SpriteRenderer>().color = Color.gray;
+            tile.tag = "UnTile";
+        }
+        else { tile.eulerAngles = new Vector3(0, 0, Random.Range(0, 4) * 90); }
     }
 
     private void Update()

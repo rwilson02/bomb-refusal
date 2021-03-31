@@ -13,34 +13,26 @@ public class FuseScript : MonoBehaviour
 
     public CenterScript center;
 
+    public Patience pat;
+
     public bool burnt = false;
     public bool started = false;
+    public bool endOfLVL = false;
 
     // Start is called before the first frame update
     void Start()
     {
         burnings = gameObject.GetComponent<Animator>();
-        connector = gameObject.transform.GetChild(0).gameObject;
         connectorScript = connector.GetComponent<ConnectorScript>();
+        pat = Camera.main.GetComponent<Patience>();
+
+        if (!endOfLVL) connector = gameObject.transform.GetChild(0).gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckConnect();
-
-        //debug commands
-        //{
-        //    if (Input.GetKeyDown(DebugIN))
-        //    {
-        //        if (burnings != null)
-        //        {
-        //            burnings.ResetTrigger("burnIn");
-        //            burnings.ResetTrigger("burnOut");
-        //        }
-        //        StartBurning(true);
-        //    }
-        //}
     }
 
     public void StartBurning(bool inward)
@@ -67,7 +59,15 @@ public class FuseScript : MonoBehaviour
     {
         if (connection != null)
         {
-            connection.StartBurning(true);
+            if (connection.endOfLVL)
+            {
+                connection.SendMessage("EndLevel", true);
+            }
+            else 
+            { 
+                connection.StartBurning(true);
+                pat.CalmDown();
+            }
         }
     }
 

@@ -5,14 +5,11 @@ using UnityEngine;
 public class TileTurner : MonoBehaviour
 {
     Camera cam;
-    public GameObject hitTile;
 
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
-
-        //randomize orientation
     }
 
     private void Update()
